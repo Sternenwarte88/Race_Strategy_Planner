@@ -1,6 +1,6 @@
 <form>
   <div>
-    <mat-radio-group name="teamRace" [(ngModel)]="raceStorage.general.teamRace">
+    <mat-radio-group name="teamRace" [(ngModel)]="raceStorage.generalConfig.teamRace">
       <mat-radio-button [value]="false">Solo Fahrer</mat-radio-button>
       <mat-radio-button [value]="true">Team Fahrer</mat-radio-button>
     </mat-radio-group>
@@ -15,7 +15,7 @@
           #input
           type="text"
           name="driverName"
-          [(ngModel)]="raceStorage.general.driverName"
+          [(ngModel)]="raceStorage.generalConfig.driverName"
           placeholder="Enter Name here :)"
         />
       </mat-form-field>
@@ -25,7 +25,7 @@
         <mat-label>Track</mat-label>
         <mat-select
           name="trackName"
-          [(ngModel)]="raceStorage.general.track"
+          [(ngModel)]="raceStorage.generalConfig.track"
           (selectionChange)="resetTrackSelection()"
         >
           @for (track of tracks; track track.name) {
@@ -35,7 +35,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Variant</mat-label>
-        <mat-select name="trackVariant" [(ngModel)]="raceStorage.general.trackVariant">
+        <mat-select name="trackVariant" [(ngModel)]="raceStorage.generalConfig.trackVariant">
           @for (variant of selectedTrack?.variants ?? []; track variant.name) {
             <mat-option [value]="variant.name">{{ variant.name }}</mat-option>
           }
@@ -44,7 +44,7 @@
 
       <mat-form-field>
         <mat-label>Layout</mat-label>
-        <mat-select name="trackLayout" [(ngModel)]="raceStorage.general.trackLayout">
+        <mat-select name="trackLayout" [(ngModel)]="raceStorage.generalConfig.trackLayout">
           @for (layout of selectedVariant?.layouts ?? []; track layout) {
             <mat-option [value]="layout">{{ layout }}</mat-option>
           }
@@ -76,7 +76,7 @@
     <div>
       <mat-form-field>
         <mat-label>Driver</mat-label>
-        <mat-select name="driverCount" [(ngModel)]="raceStorage.general.driverCount">
+        <mat-select name="driverCount" [(ngModel)]="raceStorage.generalConfig.driverCount">
           <mat-option selected [value]="1"> 1 Driver </mat-option>
           <!--
         <mat-option selected [value]="2"> 2 Driver </mat-option>

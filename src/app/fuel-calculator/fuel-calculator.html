@@ -1,1 +1,69 @@
-<p>fuel-calculator works!</p>
+<div>
+  <div>
+    <div>
+      <mat-checkbox (change)="calculateLapsPerRace()" [(ngModel)]="withInlap"
+        >With Inlap
+      </mat-checkbox>
+      <mat-checkbox (change)="calculateLapsPerRace()" [(ngModel)]="withOutlap"
+        >With outlap
+      </mat-checkbox>
+    </div>
+  </div>
+  <div>
+    <h4>Laptimes:</h4>
+  </div>
+  <div>
+    <mat-form-field>
+      Minutes:
+      <input
+        matInput
+        #input
+        type="number"
+        [formField]="lapForm.minutes"
+        (blur)="validateData('minutes', 59)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      Seconds:
+      <input
+        matInput
+        #input
+        type="number"
+        [formField]="lapForm.seconds"
+        (blur)="validateData('seconds', 59)"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      Milliseconds:
+      <input
+        matInput
+        #input
+        type="number"
+        [formField]="lapForm.milliSeconds"
+        (blur)="validateData('milliSeconds', 999)"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      Fuel per Lap:
+      <input
+        matInput
+        #input
+        type="number"
+        [formField]="lapForm.fuelPerLap"
+        (blur)="validateData('fuelPerLap', 30)"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-card>
+      <mat-card-header>Info Box</mat-card-header>
+      <mat-card-content
+        ><p>Laps per race: {{ raceStorage.generalConfig.lapsPerRace }}</p>
+
+        <p>Fuel per race: {{ raceStorage.fuelConfig.fuelPerRace }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

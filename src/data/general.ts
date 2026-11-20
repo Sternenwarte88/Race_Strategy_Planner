@@ -1,4 +1,4 @@
-export class General {
+export class GeneralConfig {
   driverName: string = '';
   driverCount: number = 1;
   track: string = '';
@@ -6,6 +6,7 @@ export class General {
   trackLayout: string = '';
   raceLengthHour: number = 0;
   raceLengthMinutes: number = 0;
+  lapsPerRace: number = 0;
   medianLapMs: number = 0;
   medianLapMin: number = 0;
   medianLabSec: number = 0;

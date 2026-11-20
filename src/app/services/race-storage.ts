@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { General } from '../../data/general';
+import { GeneralConfig } from '../../data/general';
+import { FuelConfig } from '../../data/fuel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RaceStorage {
-  general: General = new General();
+  generalConfig: GeneralConfig = new GeneralConfig();
+  fuelConfig: FuelConfig = new FuelConfig();
 }

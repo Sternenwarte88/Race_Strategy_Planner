@@ -35,7 +35,7 @@ export class Home {
   });
 
   onTeamRaceChange(value: boolean) {
-    this.raceStorage.general.teamRace = value;
+    this.raceStorage.generalConfig.teamRace = value;
   }
 
   raceTimeForm = form(this.racetimeModel, (path) => {
@@ -47,8 +47,8 @@ export class Home {
   });
 
   saveRaceTime() {
-    this.raceStorage.general.raceLengthHour = this.racetimeModel().hours;
-    this.raceStorage.general.raceLengthMinutes = this.racetimeModel().minutes;
+    this.raceStorage.generalConfig.raceLengthHour = this.racetimeModel().hours;
+    this.raceStorage.generalConfig.raceLengthMinutes = this.racetimeModel().minutes;
   }
 
   validateTime(field: 'hours' | 'minutes', maxTime: number) {
@@ -62,17 +62,18 @@ export class Home {
 
     this.saveRaceTime();
   }
+
   get selectedTrack() {
-    return this.tracks.find((track) => track.name === this.raceStorage.general.track);
+    return this.tracks.find((track) => track.name === this.raceStorage.generalConfig.track);
   }
 
   get selectedVariant() {
     return this.selectedTrack?.variants.find(
-      (variant) => variant.name === this.raceStorage.general.trackVariant,
+      (variant) => variant.name === this.raceStorage.generalConfig.trackVariant,
     );
   }
   resetTrackSelection() {
-    this.raceStorage.general.trackVariant = '';
-    this.raceStorage.general.trackLayout = '';
+    this.raceStorage.generalConfig.trackVariant = '';
+    this.raceStorage.generalConfig.trackLayout = '';
   }
 }
