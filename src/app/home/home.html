@@ -1,1 +1,89 @@
-<p>home works!</p>
+<form>
+  <div>
+    <mat-radio-group name="teamRace" [(ngModel)]="raceStorage.general.teamRace">
+      <mat-radio-button [value]="false">Solo Fahrer</mat-radio-button>
+      <mat-radio-button [value]="true">Team Fahrer</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div>
+    <!--Input Area-->
+    <div>
+      <mat-form-field>
+        Name:
+        <input
+          matInput
+          #input
+          type="text"
+          name="driverName"
+          [(ngModel)]="raceStorage.general.driverName"
+          placeholder="Enter Name here :)"
+        />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Track</mat-label>
+        <mat-select
+          name="trackName"
+          [(ngModel)]="raceStorage.general.track"
+          (selectionChange)="resetTrackSelection()"
+        >
+          @for (track of tracks; track track.name) {
+            <mat-option [value]="track.name">{{ track.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Variant</mat-label>
+        <mat-select name="trackVariant" [(ngModel)]="raceStorage.general.trackVariant">
+          @for (variant of selectedTrack?.variants ?? []; track variant.name) {
+            <mat-option [value]="variant.name">{{ variant.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Layout</mat-label>
+        <mat-select name="trackLayout" [(ngModel)]="raceStorage.general.trackLayout">
+          @for (layout of selectedVariant?.layouts ?? []; track layout) {
+            <mat-option [value]="layout">{{ layout }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <mat-form-field>
+          Hours:
+          <input
+            matInput
+            #input
+            type="number"
+            [formField]="raceTimeForm.hours"
+            (blur)="validateTime('hours', 23)"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          Minutes:
+          <input
+            matInput
+            #input
+            type="number"
+            [formField]="raceTimeForm.minutes"
+            (blur)="validateTime('hours', 59)"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Driver</mat-label>
+        <mat-select name="driverCount" [(ngModel)]="raceStorage.general.driverCount">
+          <mat-option selected [value]="1"> 1 Driver </mat-option>
+          <!--
+        <mat-option selected [value]="2"> 2 Driver </mat-option>
+        <mat-option selected [value]="3"> 3 Driver </mat-option>
+        -->
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
