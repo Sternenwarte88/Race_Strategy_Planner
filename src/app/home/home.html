@@ -1,6 +1,6 @@
 <form>
   <div>
-    <mat-radio-group name="teamRace" [(ngModel)]="raceStorage.generalConfig.teamRace">
+    <mat-radio-group name="teamRace" [(ngModel)]="teamRace">
       <mat-radio-button [value]="false">Solo Fahrer</mat-radio-button>
       <mat-radio-button [value]="true">Team Fahrer</mat-radio-button>
     </mat-radio-group>
@@ -15,7 +15,7 @@
           #input
           type="text"
           name="driverName"
-          [(ngModel)]="raceStorage.generalConfig.driverName"
+          [(ngModel)]="driverName"
           placeholder="Enter Name here :)"
         />
       </mat-form-field>
@@ -23,11 +23,7 @@
     <div>
       <mat-form-field>
         <mat-label>Track</mat-label>
-        <mat-select
-          name="trackName"
-          [(ngModel)]="raceStorage.generalConfig.track"
-          (selectionChange)="resetTrackSelection()"
-        >
+        <mat-select name="trackName" [(ngModel)]="track" (selectionChange)="resetTrackSelection()">
           @for (track of tracks; track track.name) {
             <mat-option [value]="track.name">{{ track.name }}</mat-option>
           }
@@ -35,7 +31,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Variant</mat-label>
-        <mat-select name="trackVariant" [(ngModel)]="raceStorage.generalConfig.trackVariant">
+        <mat-select name="trackVariant" [(ngModel)]="trackVariant">
           @for (variant of selectedTrack?.variants ?? []; track variant.name) {
             <mat-option [value]="variant.name">{{ variant.name }}</mat-option>
           }
@@ -44,7 +40,7 @@
 
       <mat-form-field>
         <mat-label>Layout</mat-label>
-        <mat-select name="trackLayout" [(ngModel)]="raceStorage.generalConfig.trackLayout">
+        <mat-select name="trackLayout" [(ngModel)]="trackLayout">
           @for (layout of selectedVariant?.layouts ?? []; track layout) {
             <mat-option [value]="layout">{{ layout }}</mat-option>
           }
@@ -68,7 +64,7 @@
             #input
             type="number"
             [formField]="raceTimeForm.minutes"
-            (blur)="validateTime('hours', 59)"
+            (blur)="validateTime('minutes', 59)"
           />
         </mat-form-field>
       </div>
@@ -76,7 +72,7 @@
     <div>
       <mat-form-field>
         <mat-label>Driver</mat-label>
-        <mat-select name="driverCount" [(ngModel)]="raceStorage.generalConfig.driverCount">
+        <mat-select name="driverCount" [(ngModel)]="driverCount">
           <mat-option selected [value]="1"> 1 Driver </mat-option>
           <!--
         <mat-option selected [value]="2"> 2 Driver </mat-option>
@@ -87,3 +83,4 @@
     </div>
   </div>
 </form>
+{{ this.generalDataService.getTeamRace() }}
