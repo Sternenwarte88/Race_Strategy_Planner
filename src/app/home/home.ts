@@ -32,8 +32,8 @@ export class Home {
   tracks = tracks;
 
   racetimeModel = signal({
-    hours: 0,
-    minutes: 0,
+    hours: this.generalDataService.getRaceLengthHour(),
+    minutes: this.generalDataService.getRaceLengthMinutes(),
   });
 
   raceTimeForm = form(this.racetimeModel, (path) => {

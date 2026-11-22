@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { RaceStorage } from '../services/race-storage';
 import { form, FormField, max, min } from '@angular/forms/signals';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
-import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { DataStorageService } from '../services/dataStorageService';
 
 @Component({
   selector: 'app-fuel-calculator',
@@ -24,8 +23,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './fuel-calculator.css',
 })
 export class FuelCalculator {
-  raceStorage = inject(RaceStorage);
-  lapTimeModel = signal({ minutes: 0, seconds: 0, milliSeconds: 0, fuelPerLap: 0, lapsPerRace: 0 });
+  dataStorageService = inject(DataStorageService);
+  fuelDataService = this.dataStorageService.fuelDataService;
+  generalDataService = this.dataStorageService.generalDataService;
+  lapTimeModel = signal({
+    minutes: this.fuelDataService.getLapMinute(),
+    seconds: this.fuelDataService.getLapSecond(),
+    milliSeconds: this.fuelDataService.getLapMs(),
+    fuelPerLap: this.fuelDataService.getFuelPerLap(),
+    lapsPerRace: this.calculateLapsPerRace(),
+  });
   withInlap = false;
   withOutlap = false;
 
@@ -40,27 +47,28 @@ export class FuelCalculator {
   });
 
   saveLapConfig() {
-    this.raceStorage.fuelConfig.lapMinute = this.lapTimeModel().minutes;
-    this.raceStorage.fuelConfig.lapSecond = this.lapTimeModel().seconds;
-    this.raceStorage.fuelConfig.lapMillisecond = this.lapTimeModel().milliSeconds;
-    this.raceStorage.fuelConfig.fuelPerLap = this.lapTimeModel().fuelPerLap;
+    this.fuelDataService.saveFuelData({
+      lapMinute: this.lapTimeModel().minutes,
+      lapSecond: this.lapTimeModel().seconds,
+      lapMillisecond: this.lapTimeModel().milliSeconds,
+      fuelPerLap: this.lapTimeModel().fuelPerLap,
+    });
   }
 
   calculateLapMs() {
     let calculatedMs: number = 0;
-    let convertedMinuteToMs: number = this.raceStorage.fuelConfig.lapMinute * 1000 * 60;
-    let convertedSecondsToMs: number = this.raceStorage.fuelConfig.lapSecond * 1000;
+    let convertedMinuteToMs: number = this.fuelDataService.getLapMinute() * 1000 * 60;
+    let convertedSecondsToMs: number = this.fuelDataService.getLapSecond() * 1000;
 
-    calculatedMs =
-      convertedMinuteToMs + convertedSecondsToMs + this.raceStorage.fuelConfig.lapMillisecond;
+    calculatedMs = convertedMinuteToMs + convertedSecondsToMs + this.fuelDataService.getLapMs();
 
     return calculatedMs;
   }
   calculateRaceMs() {
     let calculatedMs: number = 0;
 
-    let convertedHoursToMs: number = this.raceStorage.generalConfig.raceLengthHour * 1000 * 60 * 60;
-    let convertedMinuteToMs: number = this.raceStorage.generalConfig.raceLengthMinutes * 1000 * 60;
+    let convertedHoursToMs: number = this.generalDataService.getRaceLengthHour() * 1000 * 60 * 60;
+    let convertedMinuteToMs: number = this.generalDataService.getRaceLengthMinutes() * 1000 * 60;
 
     calculatedMs = convertedMinuteToMs + convertedHoursToMs;
 
@@ -69,9 +77,9 @@ export class FuelCalculator {
 
   calculateFuelPerRace() {
     let fuelPerRace =
-      this.raceStorage.fuelConfig.fuelPerLap * this.raceStorage.generalConfig.lapsPerRace;
-
-    this.raceStorage.fuelConfig.fuelPerRace = Math.ceil(fuelPerRace);
+      this.fuelDataService.getFuelPerLap() * this.generalDataService.getLapsPerRace();
+    fuelPerRace = Math.ceil(fuelPerRace);
+    this.fuelDataService.saveFuelData({ fuelPerRace: fuelPerRace });
   }
 
   calculateLapsPerRace() {
@@ -90,7 +98,7 @@ export class FuelCalculator {
     if (this.withOutlap) {
       roundsPerRace++;
     }
-    this.raceStorage.generalConfig.lapsPerRace = Math.ceil(roundsPerRace);
+    this.generalDataService.saveGeneralConfig({ lapsPerRace: Math.ceil(roundsPerRace) });
     this.calculateFuelPerRace();
   }
 

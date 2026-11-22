@@ -60,9 +60,9 @@
     <mat-card>
       <mat-card-header>Info Box</mat-card-header>
       <mat-card-content
-        ><p>Laps per race: {{ raceStorage.generalConfig.lapsPerRace }}</p>
+        ><p>Laps per race: {{ generalDataService.getLapsPerRace() }}</p>
 
-        <p>Fuel per race: {{ raceStorage.fuelConfig.fuelPerRace }}</p>
+        <p>Fuel per race: {{ fuelDataService.getFuelPerRace() }}</p>
       </mat-card-content>
     </mat-card>
   </div>
