@@ -6,6 +6,7 @@ import { MatCard, MatCardHeader, MatCardContent } from '@angular/material/card';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { DataStorageService } from '../services/dataStorageService';
+import { Utility } from '../utility/utility';
 
 @Component({
   selector: 'app-fuel-calculator',
@@ -56,23 +57,17 @@ export class FuelCalculator {
   }
 
   calculateLapMs() {
-    let calculatedMs: number = 0;
-    let convertedMinuteToMs: number = this.fuelDataService.getLapMinute() * 1000 * 60;
-    let convertedSecondsToMs: number = this.fuelDataService.getLapSecond() * 1000;
+    let minutes = this.fuelDataService.getLapMinute();
+    let seconds = this.fuelDataService.getLapSecond();
+    let ms = this.fuelDataService.getLapMs();
 
-    calculatedMs = convertedMinuteToMs + convertedSecondsToMs + this.fuelDataService.getLapMs();
-
-    return calculatedMs;
+    return Utility.convertTimeInMs(0, minutes, seconds, ms);
   }
   calculateRaceMs() {
-    let calculatedMs: number = 0;
+    let hours = this.generalDataService.getRaceLengthHour();
+    let minutes = this.generalDataService.getRaceLengthMinutes();
 
-    let convertedHoursToMs: number = this.generalDataService.getRaceLengthHour() * 1000 * 60 * 60;
-    let convertedMinuteToMs: number = this.generalDataService.getRaceLengthMinutes() * 1000 * 60;
-
-    calculatedMs = convertedMinuteToMs + convertedHoursToMs;
-
-    return calculatedMs;
+    return Utility.convertTimeInMs(hours, minutes);
   }
 
   calculateFuelPerRace() {
