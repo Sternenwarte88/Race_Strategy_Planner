@@ -6,46 +6,46 @@ import { RaceStorage } from './race-storage';
   providedIn: 'root',
 })
 export class GeneralConfigService {
-  private generalData = inject(RaceStorage);
+  private generalData: RaceStorage = inject(RaceStorage);
 
-  public saveGeneralConfig(data: Partial<GeneralConfig>) {
+  public saveGeneralConfig(data: Partial<GeneralConfig>): void {
     Object.assign(this.generalData.generalConfig, data);
   }
 
-  public getDriverCount() {
+  public getDriverCount(): number {
     return this.generalData.generalConfig.driverCount;
   }
-  public getDriverName() {
+  public getDriverName(): string {
     return this.generalData.generalConfig.driverName;
   }
-  public getTrack() {
+  public getTrack(): string {
     return this.generalData.generalConfig.track;
   }
-  public getTrackLayout() {
+  public getTrackLayout(): string {
     return this.generalData.generalConfig.trackLayout;
   }
-  public getTrackVariant() {
+  public getTrackVariant(): string {
     return this.generalData.generalConfig.trackVariant;
   }
-  public getRaceLengthHour() {
+  public getRaceLengthHour(): number {
     return this.generalData.generalConfig.raceLengthHour;
   }
-  public getRaceLengthMinutes() {
+  public getRaceLengthMinutes(): number {
     return this.generalData.generalConfig.raceLengthMinutes;
   }
-  public getLapsPerRace() {
+  public getLapsPerRace(): number {
     return this.generalData.generalConfig.lapsPerRace;
   }
-  public getTeamRace() {
+  public getTeamRace(): boolean {
     return this.generalData.generalConfig.teamRace;
   }
-  public getMedianLapMs() {
+  public getMedianLapMs(): number {
     return this.generalData.generalConfig.medianLapMs;
   }
-  public getMedianLapS() {
+  public getMedianLapS(): number {
     return this.generalData.generalConfig.medianLabSec;
   }
-  public getMedianLapM() {
+  public getMedianLapM(): number {
     return this.generalData.generalConfig.medianLapMin;
   }
 }
