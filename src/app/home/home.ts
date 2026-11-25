@@ -4,9 +4,10 @@ import { form, FormField, max, min } from '@angular/forms/signals';
 import { MatFormField, MatLabel, MatError } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatOption } from '@angular/material/select';
-import { tracks } from '../../data/tracks';
+import { Track, tracks } from '../../data/tracks';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { DataStorageService } from '../services/dataStorageService';
+import { GeneralConfigService } from '../services/generalConfigService';
 
 @Component({
   selector: 'app-home',
@@ -26,10 +27,10 @@ import { DataStorageService } from '../services/dataStorageService';
 })
 export class Home {
   //#region variables
-  dataStorageService = inject(DataStorageService);
-  generalDataService = this.dataStorageService.generalDataService;
-  driverCountInput = 1;
-  tracks = tracks;
+  dataStorageService: DataStorageService = inject(DataStorageService);
+  generalDataService: GeneralConfigService = this.dataStorageService.generalDataService;
+  driverCountInput: number = 1;
+  tracks: Track[] = tracks;
 
   racetimeModel = signal({
     hours: this.generalDataService.getRaceLengthHour(),
@@ -101,14 +102,14 @@ export class Home {
 
   //#endregion
 
-  saveRaceTime() {
+  saveRaceTime(): void {
     this.generalDataService.saveGeneralConfig({
       raceLengthHour: this.racetimeModel().hours,
       raceLengthMinutes: this.racetimeModel().minutes,
     });
   }
 
-  validateTime(field: 'hours' | 'minutes', maxTime: number) {
+  validateTime(field: 'hours' | 'minutes', maxTime: number): void {
     const value = this.racetimeModel()[field];
     const correctedTime = Math.min(maxTime, Math.max(0, value));
 
@@ -120,7 +121,7 @@ export class Home {
     this.saveRaceTime();
   }
 
-  resetTrackSelection() {
+  resetTrackSelection(): void {
     this.generalDataService.saveGeneralConfig({
       trackVariant: '',
       trackLayout: '',
