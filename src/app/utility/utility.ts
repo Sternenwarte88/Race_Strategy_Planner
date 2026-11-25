@@ -4,7 +4,7 @@ export class Utility {
     minutes: number = 0,
     seconds: number = 0,
     ms: number = 0,
-  ) {
+  ): number {
     let calculatedTime = 0;
     calculatedTime += ms;
     calculatedTime += seconds * 1000;
