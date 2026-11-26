@@ -1,0 +1,46 @@
+<mat-card>
+  <mat-card-header>Summary</mat-card-header>
+  <mat-card-content>
+    <mat-card-content>
+      Driver:
+      {{ dataStorage.generalDataService.getDriverName() }}</mat-card-content
+    >
+    <mat-card-content>
+      Teamrace:
+      {{ dataStorage.generalDataService.getTeamRace() }}</mat-card-content
+    >
+    <mat-card-content>
+      Driver count:
+      {{ dataStorage.generalDataService.getDriverCount() }}</mat-card-content
+    >
+    <mat-card-content>
+      Track:
+      {{ dataStorage.generalDataService.getTrack() }}</mat-card-content
+    >
+    <mat-card-content>
+      Variant:
+      {{ dataStorage.generalDataService.getTrackVariant() }}</mat-card-content
+    >
+    <mat-card-content>
+      Layout:
+      {{ dataStorage.generalDataService.getTrackLayout() }}</mat-card-content
+    >
+    <mat-card-content>
+      Racetime: {{ dataStorage.generalDataService.getRaceLengthHour() }}H
+      {{ dataStorage.generalDataService.getRaceLengthMinutes() }}M
+    </mat-card-content>
+  </mat-card-content>
+  <mat-card-content>
+    <mat-card-content>
+      Fuel per Lap: {{ dataStorage.fuelDataService.getFuelPerLap() }}
+    </mat-card-content>
+    <mat-card-content>
+      Fuel per Race: {{ dataStorage.fuelDataService.getFuelPerRace() }}
+    </mat-card-content>
+    <mat-card-content>
+      Laptime: {{ dataStorage.fuelDataService.getLapMinute() }}.{{
+        dataStorage.fuelDataService.getLapSecond()
+      }}.{{ dataStorage.fuelDataService.getLapMs() }}
+    </mat-card-content>
+  </mat-card-content>
+</mat-card>

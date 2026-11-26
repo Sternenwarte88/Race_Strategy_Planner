@@ -47,16 +47,17 @@ routerLinkActive
 >
 Race Planner
 </a>
-<a
-mat-tab-link
-routerLink="Summary"
-routerLinkActive
-#rla6="routerLinkActive"
-[active]="rla6.isActive"
->
-Summary
-</a>
---></nav>
+-->
+  <a
+    mat-tab-link
+    routerLink="summary"
+    routerLinkActive
+    #rla6="routerLinkActive"
+    [active]="rla6.isActive"
+  >
+    Summary
+  </a>
+</nav>
 
 <mat-tab-nav-panel #tabPanel>
   <router-outlet />
